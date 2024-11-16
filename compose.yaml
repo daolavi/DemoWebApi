@@ -1,0 +1,21 @@
+﻿services:      
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=P@ssword123!
+    ports:
+      - "1421:1433"
+
+  demowebapi:
+    image: demowebapi
+    build:
+      context: .
+      dockerfile: src/DemoWebApi.Api/Dockerfile
+    container_name: demowebapicontainer
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DemoWebApiConnectionString=Server=mssql;Database=demowebapi;User ID=sa;Password=P@ssword123!;TrustServerCertificate=True

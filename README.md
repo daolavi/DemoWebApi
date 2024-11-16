@@ -10,6 +10,17 @@ TODO: Guide users through getting your code up and running on their own system. 
 
 # Build and Test
 TODO: Describe and show how to build your code and run the tests. 
+1. docker build -t demowebapi -f pipelines/Dockerfile .
+2. docker run -d -p 8080:8080 --name demowebapicontainer demowebapi
+3. docker kill demowebapicontainer
+
+
+1. docker compose build --rm
+2. docker compose run
+
+
+1. docker compose up -d
+2. docker compose down
 
 # Contribute
 TODO: Explain how other users and developers can contribute to make your code better. 

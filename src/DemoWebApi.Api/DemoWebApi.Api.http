@@ -1,0 +1,6 @@
+@DemoWebApi.Api_HostAddress = http://localhost:5065
+
+GET {{DemoWebApi.Api_HostAddress}}/api/DemoTasks/
+Accept: application/json
+
+###
