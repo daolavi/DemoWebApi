@@ -23,7 +23,7 @@ stages:
   - stage: DeployToStaging
     displayName: 'Deploy to Staging'
     dependsOn: BuildAndTest
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: deploy.yml
         parameters:
@@ -36,7 +36,7 @@ stages:
     displayName: 'Deploy to Production'
     dependsOn: DeployToStaging
     condition: false
-    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: deploy.yml
         parameters:
