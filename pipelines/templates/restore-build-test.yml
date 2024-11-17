@@ -2,7 +2,12 @@ parameters:
   solution: '**/*.sln'
   buildConfiguration: 'Release'
 
-steps:
+stages:
+  - stage: 'BuildAndTest'
+    displayName: 'Build and test'
+    jobs:
+      
+    
   - task: UseDotNet@2
     displayName: 'Install .NET SDK'
     inputs:

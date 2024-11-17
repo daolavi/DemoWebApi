@@ -1,10 +1,5 @@
 trigger:
-  - master
-
-pr:
-  branches:
-    include:
-      - '*'
+  - main
 
 pool:
   vmImage: 'windows-latest'
@@ -18,7 +13,7 @@ stages:
   - stage: BuildAndTest
     displayName: 'Build and Test'
     jobs:
-      - template: restore-build-test.yml
+      - template: templates/restore-build-test.yml
         parameters:
           solution: $(solution)
           buildConfiguration: $(buildConfiguration)
@@ -26,9 +21,9 @@ stages:
   - stage: DeployToStaging
     displayName: 'Deploy to Staging'
     dependsOn: BuildAndTest
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: succeeded()
     jobs:
-      - template: deploy.yml
+      - template: templates/deploy.yml
         parameters:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
@@ -37,9 +32,9 @@ stages:
 #  - stage: DeployToProduction
 #    displayName: 'Deploy to Production'
 #    dependsOn: BuildAndTest
-#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#    condition: succeeded()
 #    jobs:
-#      - template: deploy.yml
+#      - template: templates/deploy.yml
 #        parameters:
 #          environment: 'production'
 #          azureSubscription: $(azureSubscription)
