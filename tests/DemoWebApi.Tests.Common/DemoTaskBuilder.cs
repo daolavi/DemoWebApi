@@ -1,7 +1,7 @@
 using DemoWebApi.Domain.AggregatesModel.DemoTaskAggregate;
 using FluentResults;
 
-namespace DemoWebApi.Domain.UnitTests;
+namespace DemoWebApi.Tests.Common;
 
 public class DemoTaskBuilder
 {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoWebApi.Application.Queries;
 
-public class GetDemoTaskByIdQueryHandler(IDemoWebApiContext context) : IRequestHandler<GetDemoTaskByIdQuery, Result<DemoTaskDto>>
+public class GetDemoTaskByIdQueryHandler(DemoWebApiContext context) : IRequestHandler<GetDemoTaskByIdQuery, Result<DemoTaskDto>>
 {
     public async Task<Result<DemoTaskDto>> Handle(GetDemoTaskByIdQuery request, CancellationToken cancellationToken)
     {

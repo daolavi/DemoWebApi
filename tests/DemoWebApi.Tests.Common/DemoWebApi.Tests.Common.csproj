@@ -10,9 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoFixture" Version="4.18.1" />
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="FluentAssertions" Version="6.12.2" />
+        <PackageReference Include="FluentResults" Version="3.16.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="NUnit" Version="3.14.0"/>
         <PackageReference Include="NUnit.Analyzers" Version="3.9.0"/>
@@ -25,7 +24,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\DemoWebApi.Domain\DemoWebApi.Domain.csproj" />
-      <ProjectReference Include="..\DemoWebApi.Tests.Common\DemoWebApi.Tests.Common.csproj" />
     </ItemGroup>
 
 </Project>

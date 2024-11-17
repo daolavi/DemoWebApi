@@ -1,4 +1,5 @@
 using AutoFixture;
+using DemoWebApi.Tests.Common;
 using FluentAssertions;
 
 namespace DemoWebApi.Domain.UnitTests;
@@ -9,7 +10,7 @@ public class DemoTaskTests
     private readonly Fixture _fixture = new();
     
     [Test]
-    public void Create_WhenNameIsNull_ReturnError()
+    public void Create_WhenNameIsNull_ReturnsError()
     {
         var builder = new DemoTaskBuilder()
             .WithName(null!)
@@ -23,7 +24,7 @@ public class DemoTaskTests
     }
 
     [Test]
-    public void Create_WhenDueDateIsNull_ReturnError()
+    public void Create_WhenDueDateIsNull_ReturnsError()
     {
         var builder = new DemoTaskBuilder()
             .WithName("demo")
@@ -37,7 +38,7 @@ public class DemoTaskTests
     }
     
     [Test]
-    public void Create_WhenTaskIsDoneAndCompletionDateIsNull_ReturnError()
+    public void Create_WhenTaskIsDoneAndCompletionDateIsNull_ReturnsError()
     {
         var builder = new DemoTaskBuilder()
             .WithName("demo")
@@ -51,7 +52,7 @@ public class DemoTaskTests
     }
 
     [Test]
-    public void Create_WhenValid_ReturnDemoTask()
+    public void Create_WhenValid_ReturnsDemoTask()
     {
         var name = "demo";
         var isDone = _fixture.Create<bool>();

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DemoWebApi.Application.Commands;
 
-public class CreateDemoTaskCommandHandler(IDemoWebApiContext context) : IRequestHandler<CreateDemoTaskCommand, Result<Guid>>
+public class CreateDemoTaskCommandHandler(DemoWebApiContext context) : IRequestHandler<CreateDemoTaskCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateDemoTaskCommand request, CancellationToken cancellationToken)
     {
@@ -17,7 +17,7 @@ public class CreateDemoTaskCommandHandler(IDemoWebApiContext context) : IRequest
         }
 
         await context.DemoTasks.AddAsync(createDemoTask.Value, cancellationToken);
-        await context.SaveEntitiesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
         return Result.Ok(createDemoTask.Value.Id);
 
     }

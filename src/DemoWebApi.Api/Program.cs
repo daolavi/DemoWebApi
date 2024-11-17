@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<IDemoWebApiContext, DemoWebApiContext>(opt =>
+builder.Services.AddDbContext<DemoWebApiContext>(opt =>
 {
     opt.UseSqlServer(
         builder.Configuration.GetConnectionString("DemoWebApiConnectionString"),
@@ -50,3 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+
+namespace DemoWebApi.Api
+{
+    public abstract partial class Program { }
+}

@@ -7,9 +7,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Domain", "src\DemoWebApi.Domain\DemoWebApi.Domain.csproj", "{A432B581-3156-496A-A69F-75ACFEA3C65D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{E7E2D6E5-C25A-4ED8-9C9E-BA98BB0F1B04}"
-	ProjectSection(SolutionItems) = preProject
-		pipelines\Dockerfile = pipelines\Dockerfile
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Infrastructure", "src\DemoWebApi.Infrastructure\DemoWebApi.Infrastructure.csproj", "{80956334-A09A-451D-A07F-6DFD124282A4}"
 EndProject
@@ -25,6 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FAAA60A6-83C3-4ABC-8A3E-294349E8C046}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Domain.UnitTests", "tests\DemoWebApi.Domain.UnitTests\DemoWebApi.Domain.UnitTests.csproj", "{71B605E4-1E8C-4BD7-95D4-A6304D5F0726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Api.IntegrationTests", "tests\DemoWebApi.Api.IntegrationTests\DemoWebApi.Api.IntegrationTests.csproj", "{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Tests.Common", "tests\DemoWebApi.Tests.Common\DemoWebApi.Tests.Common.csproj", "{56C070F7-C341-4821-870B-B96369B7DF69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +57,14 @@ Global
 		{71B605E4-1E8C-4BD7-95D4-A6304D5F0726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71B605E4-1E8C-4BD7-95D4-A6304D5F0726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71B605E4-1E8C-4BD7-95D4-A6304D5F0726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C070F7-C341-4821-870B-B96369B7DF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C070F7-C341-4821-870B-B96369B7DF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C070F7-C341-4821-870B-B96369B7DF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C070F7-C341-4821-870B-B96369B7DF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4CC66380-8C52-4C5D-9432-C715E8FE3B70} = {C7CC6115-FAD1-4C34-BB20-EAE07AB8F75C}
@@ -64,5 +73,7 @@ Global
 		{9221ACDA-4CB8-46B2-88C9-DD97CB72DA62} = {C7CC6115-FAD1-4C34-BB20-EAE07AB8F75C}
 		{9C69EB9E-3082-4A20-8A3A-1F1B7FAA891B} = {C7CC6115-FAD1-4C34-BB20-EAE07AB8F75C}
 		{71B605E4-1E8C-4BD7-95D4-A6304D5F0726} = {FAAA60A6-83C3-4ABC-8A3E-294349E8C046}
+		{53BAB377-8D14-47C0-A0D6-47B1B6F0A08A} = {FAAA60A6-83C3-4ABC-8A3E-294349E8C046}
+		{56C070F7-C341-4821-870B-B96369B7DF69} = {FAAA60A6-83C3-4ABC-8A3E-294349E8C046}
 	EndGlobalSection
 EndGlobal
