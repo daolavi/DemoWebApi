@@ -9,18 +9,10 @@ public interface IDemoWebApiContext
     Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default);
 }
 
-public class DemoWebApiContext : DbContext, IDemoWebApiContext
+public class DemoWebApiContext(DbContextOptions<DemoWebApiContext> options) : DbContext(options), IDemoWebApiContext
 {
     public DbSet<DemoTask> DemoTasks { get; init; }
-    
-    public DemoWebApiContext()
-    { }
-    
-    public DemoWebApiContext(DbContextOptions<DemoWebApiContext> options)
-        : base(options)
-    {
-    }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(DemoWebApiContext).Assembly);

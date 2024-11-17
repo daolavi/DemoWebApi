@@ -9,7 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<IDemoWebApiContext, DemoWebApiContext>(opt =>
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DemoWebApiConnectionString"));
+    opt.UseSqlServer(
+        builder.Configuration.GetConnectionString("DemoWebApiConnectionString"),
+        sqlServerOptionsAction: sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure
+            (
+                maxRetryCount: 10,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null
+            );
+        });
 });
 builder.Services.AddHealthChecks();
 

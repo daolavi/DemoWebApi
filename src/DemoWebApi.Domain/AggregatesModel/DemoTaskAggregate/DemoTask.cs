@@ -17,7 +17,7 @@ public class DemoTask : Entity
         CompletionDate = completionDate;
     }
 
-    public static Result<DemoTask> CreateTask(string name, bool isDone, DateTime? dueDate, DateTime? completionDate)
+    public static Result<DemoTask> CreateTask(string? name, bool isDone, DateTime? dueDate, DateTime? completionDate)
     {
         if (string.IsNullOrEmpty(name))
         {
