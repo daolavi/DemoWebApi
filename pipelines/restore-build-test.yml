@@ -35,6 +35,6 @@ jobs:
         inputs:
           testSelector: 'testAssemblies'
           testAssemblyVer2: |
-            **\*test*.dll
+            **\*tests.dll
             !**\obj\**
           searchFolder: '$(System.DefaultWorkingDirectory)'
