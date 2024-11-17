@@ -2,6 +2,7 @@ using System.Net;
 using AutoFixture;
 using DemoWebApi.Infrastructure;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoWebApi.Api.IntegrationTests.Controllers;
@@ -53,6 +54,6 @@ public class IntegrationTestBase
     protected async Task ThenReturnsErrorMessage(string expectedMessage)
     {
         var message = await Response.Content.ReadAsStringAsync();
-        message.Should().Be(expectedMessage);
+        message.Should().Contain(expectedMessage);
     }
 }

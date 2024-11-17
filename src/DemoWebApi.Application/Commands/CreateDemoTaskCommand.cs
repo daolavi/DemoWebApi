@@ -1,3 +1,4 @@
+using DemoWebApi.Contracts.Responses;
 using FluentResults;
 using MediatR;
 
@@ -7,4 +8,4 @@ public record CreateDemoTaskCommand(
     string Name,
     bool IsDone,
     DateTime? DueDate,
-    DateTime? CompletionDate) : IRequest<Result<Guid>>;
+    DateTime? CompletionDate) : IRequest<Result<CreateDemoTaskResponse>>;
