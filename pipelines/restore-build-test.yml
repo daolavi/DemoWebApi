@@ -30,12 +30,14 @@ jobs:
           platform: 'Any CPU'
           configuration: ${{ parameters.buildConfiguration }}
 
-      - task: AzureCLI@2
+      - task: VSTest@2
         displayName: 'Run Tests'
         inputs:
-          scriptType: 'pscore'
-          scriptLocation: 'inlineScript'
-          inlineScript: 'dotnet test ${{parameters.Solution}} --configuration Release --logger trx'
+          testSelector: 'testAssemblies'
+          testAssemblyVer2: |
+            **\*tests.dll
+            !**\obj\**
+          searchFolder: '$(System.DefaultWorkingDirectory)'
 
       - task: CopyFiles@2
         displayName: 'Copy Files to Artifact Staging Directory'
