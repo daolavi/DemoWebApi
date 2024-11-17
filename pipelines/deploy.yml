@@ -8,17 +8,24 @@ jobs:
   - job: Deploy
     displayName: 'Deploy to Azure App Service (${parameters.environment})'
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK for Deployment'
+      - task: ArchiveFiles@2
+        displayName: 'Archive Build Artifacts'
         inputs:
-          packageType: 'sdk'
-          version: ${{ parameters.dotNetVersion }}
-          installationPath: $(Agent.ToolsDirectory)/dotnet
+          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Build Artifacts'
+        inputs:
+          pathToPublish: '$(Build.ArtifactStagingDirectory)/build.zip'
+          artifactName: 'drop'
 
       - task: AzureWebApp@1
-        displayName: 'Deploy to Azure App Service (Environment: ${{ parameters.environment }})'
+        displayName: 'Deploy to Azure App Service (${parameters.environment})'
         inputs:
           azureSubscription: ${{ parameters.azureSubscription }}
           appType: 'webApp'
           appName: ${{ parameters.appServiceName }}
-          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+          package: '$(Pipeline.Workspace)/drop/build.zip'
