@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  azureSubscription: 'dl-service-connection-name'
+  azureSubscription: 'rm-service-connection'
   solution: '**/*.sln'
   dotNetVersion: '8.x'
 
