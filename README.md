@@ -15,7 +15,7 @@ TODO: Describe and show how to build your code and run the tests.
 3. docker kill demowebapicontainer
 
 
-1. docker compose build --rm
+1. docker compose build
 2. docker compose run
 
 

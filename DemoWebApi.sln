@@ -7,6 +7,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Domain", "src\DemoWebApi.Domain\DemoWebApi.Domain.csproj", "{A432B581-3156-496A-A69F-75ACFEA3C65D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{E7E2D6E5-C25A-4ED8-9C9E-BA98BB0F1B04}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\demowebapi-pipeline.yml = pipelines\demowebapi-pipeline.yml
+		pipelines\deploy.yml = pipelines\deploy.yml
+		pipelines\restore-build-test.yml = pipelines\restore-build-test.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoWebApi.Infrastructure", "src\DemoWebApi.Infrastructure\DemoWebApi.Infrastructure.csproj", "{80956334-A09A-451D-A07F-6DFD124282A4}"
 EndProject
