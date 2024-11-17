@@ -8,34 +8,38 @@ variables:
   buildConfiguration: 'Release'
   azureSubscription: 'dl-service-connection-name'
   solution: '**/*.sln'
+  dotNetVersion: '8.x'
 
 stages:
   - stage: BuildAndTest
     displayName: 'Build and Test'
     jobs:
-      - template: templates/restore-build-test.yml
+      - template: restore-build-test.yml
         parameters:
           solution: $(solution)
           buildConfiguration: $(buildConfiguration)
+          dotNetVersion: $(dotNetVersion)
 
   - stage: DeployToStaging
     displayName: 'Deploy to Staging'
     dependsOn: BuildAndTest
     condition: succeeded()
     jobs:
-      - template: templates/deploy.yml
+      - template: deploy.yml
         parameters:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
           appServiceName: 'demo-web-api-staging'
+          dotNetVersion: $(dotNetVersion)
 
 #  - stage: DeployToProduction
 #    displayName: 'Deploy to Production'
 #    dependsOn: BuildAndTest
 #    condition: succeeded()
 #    jobs:
-#      - template: templates/deploy.yml
+#      - template: deploy.yml
 #        parameters:
 #          environment: 'production'
 #          azureSubscription: $(azureSubscription)
 #          appServiceName: 'demo-web-api-prod'
+#          dotNetVersion: $(dotNetVersion)

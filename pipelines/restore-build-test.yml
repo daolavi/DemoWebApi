@@ -1,0 +1,40 @@
+parameters:
+  solution: '**/*.sln'
+  buildConfiguration: 'Release'
+  dotNetVersion: ''
+
+jobs:
+  - job: BuildAndTest
+    displayName: 'Restore, Build, and Test'
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          packageType: 'sdk'
+          version: ${{ parameters.dotNetVersion }}
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+
+      - task: NuGetToolInstaller@1
+        displayName: 'Install NuGet'
+
+      - task: NuGetCommand@2
+        displayName: 'Restore NuGet Packages'
+        inputs:
+          restoreSolution: ${{ parameters.solution }}
+
+      - task: VSBuild@1
+        displayName: 'Build Solution'
+        inputs:
+          solution: ${{ parameters.solution }}
+          msbuildArgs: '/p:Configuration=${{ parameters.buildConfiguration }}'
+          platform: 'Any CPU'
+          configuration: ${{ parameters.buildConfiguration }}
+
+      - task: VSTest@2
+        displayName: 'Run Tests'
+        inputs:
+          testSelector: 'testAssemblies'
+          testAssemblyVer2: |
+            **\*test*.dll
+            !**\obj\**
+          searchFolder: '$(System.DefaultWorkingDirectory)'

@@ -1,0 +1,24 @@
+parameters:
+  environment: ''
+  azureSubscription: ''
+  appServiceName: ''
+  dotNetVersion: ''
+
+jobs:
+  - job: Deploy
+    displayName: 'Deploy to Azure App Service (${parameters.environment})'
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK for Deployment'
+        inputs:
+          packageType: 'sdk'
+          version: ${{ parameters.dotNetVersion }}
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+
+      - task: AzureWebApp@1
+        displayName: 'Deploy to Azure App Service (Environment: ${{ parameters.environment }})'
+        inputs:
+          azureSubscription: ${{ parameters.azureSubscription }}
+          appType: 'webApp'
+          appName: ${{ parameters.appServiceName }}
+          package: '$(System.DefaultWorkingDirectory)/**/*.zip'
