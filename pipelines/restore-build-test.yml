@@ -33,7 +33,6 @@ jobs:
       - task: AzureCLI@2
         displayName: 'Run Tests'
         inputs:
-          azureSubscription: 'Platform-Local'
           scriptType: 'pscore'
           scriptLocation: 'inlineScript'
           inlineScript: 'dotnet test ${{parameters.Solution}} --configuration Release --logger trx'

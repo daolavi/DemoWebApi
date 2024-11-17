@@ -23,7 +23,7 @@ stages:
   - stage: DeployToStaging
     displayName: 'Deploy to Staging'
     dependsOn: BuildAndTest
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) # Only deploy on master branch
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - template: deploy.yml
         parameters:
