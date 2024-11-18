@@ -6,7 +6,7 @@ pool:
 
 variables:
   connectionString: ''
-  projectPath: './src/DemoWebApi.Infrastructure.csproj'
+  projectPath: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
   dotNetVersion: '8.x'
 
 stages:
