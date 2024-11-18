@@ -16,16 +16,12 @@ stages:
     displayName: 'Build Stage'
     jobs:
       - job: Build
-        displayName: 'Build migration project'
+        displayName: 'Build projects to run migrations'
         steps:
           - task: UseDotNet@2
             displayName: 'Install .NET SDK'
             inputs:
               version: $(dotNetVersion)
-              
-          - script: |
-              dotnet tool install --global dotnet-ef
-            displayName: 'Restore and Build'
 
           - script: |
               dotnet restore $(projectPath)
