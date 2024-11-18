@@ -5,10 +5,9 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  buildConfiguration: 'Release'
   azureSubscription: 'rm-service-connection'
-  solution: '**/*.sln'
   dotNetVersion: '8.x'
+  artifactName: 'demowebpi'
 
 stages:
   - stage: BuildAndTest
@@ -16,9 +15,8 @@ stages:
     jobs:
       - template: restore-build-test.yml
         parameters:
-          solution: $(solution)
-          buildConfiguration: $(buildConfiguration)
           dotNetVersion: $(dotNetVersion)
+          artifactName: $(artifactName)
 
   - stage: DeployToStaging
     displayName: 'Deploy to Staging'
@@ -30,7 +28,8 @@ stages:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
           appServiceName: 'demo-web-api-staging'
-          dotNetVersion: $(dotNetVersion)
+          artifactName: $(artifactName)
+          
 
   - stage: DeployToProduction
     displayName: 'Deploy to Production'
@@ -43,4 +42,4 @@ stages:
           environment: 'production'
           azureSubscription: $(azureSubscription)
           appServiceName: 'demo-web-api-production'
-          dotNetVersion: $(dotNetVersion)
+          artifactName: $(artifactName)

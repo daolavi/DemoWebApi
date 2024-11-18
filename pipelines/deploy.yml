@@ -1,26 +1,19 @@
 parameters:
   environment: ''
+  artifactName: ''
   azureSubscription: ''
   appServiceName: ''
-  dotNetVersion: ''
 
 jobs:
   - job: Deploy
     displayName: 'Deploy to Azure App Service (${parameters.environment})'
     steps:
-      - task: ArchiveFiles@2
-        displayName: 'Archive Build Artifacts'
+      - task: DownloadPipelineArtifact@2
+        displayName: 'Download artifact'
         inputs:
-          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'
-
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish Build Artifacts'
-        inputs:
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/build.zip'
-          artifactName: 'drop'
+          source: 'current'
+          artifact: ${{ parameters.artifactName }}
+          path: '$(Pipeline.Workspace)'
 
       - task: AzureWebApp@1
         displayName: 'Deploy to Azure App Service (${parameters.environment})'
@@ -28,4 +21,4 @@ jobs:
           azureSubscription: ${{ parameters.azureSubscription }}
           appType: 'webApp'
           appName: ${{ parameters.appServiceName }}
-          package: '$(Pipeline.Workspace)/drop/build.zip'
+          package: '$(Pipeline.Workspace)/**/*.zip'
