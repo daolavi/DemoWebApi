@@ -4,7 +4,7 @@ parameters:
 
 jobs:
   - job: BuildAndTest
-    displayName: 'Restore, Build, and Test'
+    displayName: 'Restore, Build and Test'
     steps:
       - task: UseDotNet@2
         displayName: 'Install .NET SDK'

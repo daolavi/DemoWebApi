@@ -30,7 +30,7 @@ stages:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
           appServiceName: '$(appServiceName)-staging'
-          resourceGroupName: '$(appServiceName)-staging-rg'
+          resourceGroupName: '$(resourceGroupName)-staging-rg'
           artifactName: $(artifactName)
           
 
@@ -45,5 +45,5 @@ stages:
           environment: 'production'
           azureSubscription: $(azureSubscription)
           appServiceName: '$(appServiceName)-prod'
-          resourceGroupName: '$(appServiceName)-prod-rg'
+          resourceGroupName: '$(resourceGroupName)-prod-rg'
           artifactName: $(artifactName)
