@@ -8,6 +8,8 @@ variables:
   azureSubscription: 'rm-service-connection'
   dotNetVersion: '8.x'
   artifactName: 'demowebpi'
+  resourceGroupName: 'demowebapi'
+  appServiceName: 'demo-web-api'
 
 stages:
   - stage: BuildAndTest
@@ -27,7 +29,8 @@ stages:
         parameters:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
-          appServiceName: 'demo-web-api-staging'
+          appServiceName: '$(appServiceName)-staging'
+          resourceGroupName: '$(appServiceName)-staging-rg'
           artifactName: $(artifactName)
           
 
@@ -41,5 +44,6 @@ stages:
         parameters:
           environment: 'production'
           azureSubscription: $(azureSubscription)
-          appServiceName: 'demo-web-api-production'
+          appServiceName: '$(appServiceName)-prod'
+          resourceGroupName: '$(appServiceName)-prod-rg'
           artifactName: $(artifactName)
