@@ -1,0 +1,39 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  connectionString: ''
+  projectPath: './src/DemoWebApi.Infrastructure.csproj'
+  dotNetVersion: '8.x'
+
+stages:
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: Build
+        displayName: 'Build EF Project'
+        steps:
+          - task: UseDotNet@2
+            displayName: 'Install .NET SDK'
+            inputs:
+              version: $(dotNetVersion)
+
+          - script: |
+              dotnet restore $(projectPath)
+              dotnet build $(projectPath) --configuration Release
+            displayName: 'Restore and Build'
+
+  - stage: ApplyMigration
+    displayName: 'Apply Migration'
+    dependsOn: Build
+    jobs:
+      - job: ApplyMigrations
+        displayName: 'Apply EF Core Migrations'
+        steps:
+          - script: |
+              dotnet tool install --global dotnet-ef --version $(dotNetVersion)
+              dotnet ef database update --project $(projectPath) --connection "$(connectionString)"
+            displayName: 'Apply Migrations'
