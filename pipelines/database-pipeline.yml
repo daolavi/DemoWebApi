@@ -24,24 +24,16 @@ stages:
               version: $(dotNetVersion)
 
           - script: |
+              dotnet tool install --global dotnet-ef
               dotnet restore $(projectPath)
               dotnet restore $(startupProjectPath)
               dotnet build $(projectPath) --configuration Release
               dotnet build $(startupProjectPath) --configuration Release
             displayName: 'Restore and Build'
-            
-  - stage: InstallDotNetEf
-    displayName: 'Install dotnet ef'
-    dependsOn: Build
-    jobs:
-      - job: InstallDotNetEf
-        steps:
-          - script: |
-              dotnet tool install --global dotnet-ef
 
   - stage: ApplyMigrationsToStaging
     displayName: 'Apply migrations to Staging'
-    dependsOn: InstallDotNetEf
+    dependsOn: Build
     jobs:
       - template: template-migration.yml
         parameters:
