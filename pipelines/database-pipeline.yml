@@ -5,7 +5,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  connectionString: ''
+  connectionString: $(connectionString)
   startupProjectPath: './src/DemoWebApi.Api/DemoWebApi.Api.csproj'
   projectPath: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
   dotNetVersion: '8.x'
