@@ -1,0 +1,12 @@
+parameters:
+  environment: ''
+  connectionString: ''
+  projectPath: ''
+  startupProjectPath: ''
+
+jobs:     
+  - job: ApplyMigrations
+    displayName: 'Apply migrations (${{parameters.environment}})'
+    steps:
+      - script: |
+          dotnet ef database update --project ${{parameters.projectPath}} --startup-project ${{parameters.startupProjectPath}} --connection "${{parameters.connectionString}}"

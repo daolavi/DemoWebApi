@@ -6,6 +6,7 @@ pool:
 
 variables:
   connectionStringStaging: $(connectionStringInPipelineStaging)
+  connectionStringProd: $(connectionStringInPipelineProd)
   startupProjectPath: './src/DemoWebApi.Api/DemoWebApi.Api.csproj'
   projectPath: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
   dotNetVersion: '8.x'
@@ -15,7 +16,7 @@ stages:
     displayName: 'Build Stage'
     jobs:
       - job: Build
-        displayName: 'Build Migration Project'
+        displayName: 'Build migration project'
         steps:
           - task: UseDotNet@2
             displayName: 'Install .NET SDK'
@@ -28,14 +29,35 @@ stages:
               dotnet build $(projectPath) --configuration Release
               dotnet build $(startupProjectPath) --configuration Release
             displayName: 'Restore and Build'
-
-  - stage: ApplyMigration
-    displayName: 'Apply Migrations'
+            
+  - stage: InstallDotNetEf
+    displayName: 'Install dotnet ef'
     dependsOn: Build
     jobs:
-      - job: ApplyMigrations
+      - job: InstallDotNetEf
         steps:
           - script: |
               dotnet tool install --global dotnet-ef
-              dotnet ef database update --project $(projectPath) --startup-project $(startupProjectPath) --connection "$(connectionStringStaging)"
-            displayName: 'Apply Migrations'
+
+  - stage: ApplyMigrationsToStaging
+    displayName: 'Apply migrations to Staging'
+    dependsOn: InstallDotNetEf
+    jobs:
+      - template: template-migration.yml
+        parameters:
+          environment: 'staging'
+          connectionString: $(connectionStringStaging)
+          projectPath: $(projectPath)
+          startupProjectPath: $(startupProjectPath)
+          
+  - stage: ApplyMigrationsToProduction
+    displayName: 'Apply migrations to Production'
+    dependsOn: ApplyMigrationsToStaging
+    condition: false
+    jobs:
+      - template: template-migration.yml
+        parameters:
+          environment: 'production'
+          connectionString: $(connectionStringProd)
+          projectPath: $(projectPath)
+          startupProjectPath: $(startupProjectPath)

@@ -15,7 +15,7 @@ stages:
   - stage: BuildAndTest
     displayName: 'Build and Test'
     jobs:
-      - template: restore-build-test.yml
+      - template: template-restore-build-test.yml
         parameters:
           dotNetVersion: $(dotNetVersion)
           artifactName: $(artifactName)
@@ -25,7 +25,7 @@ stages:
     dependsOn: BuildAndTest
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
-      - template: deploy.yml
+      - template: template-deploy.yml
         parameters:
           environment: 'staging'
           azureSubscription: $(azureSubscription)
@@ -40,7 +40,7 @@ stages:
     condition: false
     #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
-      - template: deploy.yml
+      - template: template-deploy.yml
         parameters:
           environment: 'production'
           azureSubscription: $(azureSubscription)
