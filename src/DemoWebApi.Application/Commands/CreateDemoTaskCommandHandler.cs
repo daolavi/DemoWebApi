@@ -18,7 +18,7 @@ public class CreateDemoTaskCommandHandler(DemoWebApiContext context) : IRequestH
         }
 
         await context.DemoTasks.AddAsync(createDemoTask.Value, cancellationToken);
-        await context.SaveChangesAsync(cancellationToken);
+        await context.SaveEntitiesAsync(cancellationToken);
         return Result.Ok(new CreateDemoTaskResponse(createDemoTask.Value.Id));
     }
 }

@@ -1,3 +1,4 @@
+using DemoWebApi.Domain.Events;
 using FluentResults;
 
 namespace DemoWebApi.Domain.AggregatesModel.DemoTaskAggregate;
@@ -15,6 +16,8 @@ public class DemoTask : Entity
         IsDone = isDone;
         DueDate = dueDate;
         CompletionDate = completionDate;
+        
+        AddDomainEvent(new DemoTaskCreatedDomainEvent(this));
     }
 
     public static Result<DemoTask> CreateTask(string? name, bool isDone, DateTime? dueDate, DateTime? completionDate)
@@ -42,5 +45,7 @@ public class DemoTask : Entity
     {
         IsDone = true;
         CompletionDate = completionDate;
+        
+        AddDomainEvent(new DemoTaskCompletedDomainEvent(this));
     }
 }
