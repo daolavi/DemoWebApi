@@ -34,6 +34,6 @@ stages:
         displayName: 'Apply EF Core Migrations'
         steps:
           - script: |
-              dotnet tool install --global dotnet-ef --version $(dotNetVersion)
+              dotnet tool install --global dotnet-ef
               dotnet ef database update --project $(projectPath) --connection "$(connectionString)"
             displayName: 'Apply Migrations'
