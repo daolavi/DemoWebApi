@@ -37,7 +37,7 @@ jobs:
         condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
         inputs:
           command: publish
-          publishWebProjects: false
+          publishWebProjects: true
           zipAfterPublish: true
           arguments: '--configuration release --output $(Build.ArtifactStagingDirectory)'
           
