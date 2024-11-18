@@ -5,14 +5,10 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  - name: connectionString
-    value: $(connectionString)
-  - name: startupProjectPath
-    value: './src/DemoWebApi.Api/DemoWebApi.Api.csproj'
-  - name: projectPath
-    value: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
-  - name: dotNetVersion
-    value: '8.x'
+  connectionStringStaging: $(connectionStringInPipelineStaging)
+  startupProjectPath: './src/DemoWebApi.Api/DemoWebApi.Api.csproj'
+  projectPath: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
+  dotNetVersion: '8.x'
 
 stages:
   - stage: Build
@@ -38,9 +34,8 @@ stages:
     dependsOn: Build
     jobs:
       - job: ApplyMigrations
-        displayName: 'Apply EF Core Migrations'
         steps:
           - script: |
               dotnet tool install --global dotnet-ef
-              dotnet ef database update --project $(projectPath) --startup-project $(startupProjectPath) --connection "$(connectionString)"
+              dotnet ef database update --project $(projectPath) --startup-project $(startupProjectPath) --connection "$(connectionStringStaging)"
             displayName: 'Apply Migrations'
