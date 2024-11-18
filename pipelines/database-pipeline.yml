@@ -6,6 +6,7 @@ pool:
 
 variables:
   connectionString: ''
+  startupProjectPath: './src/DemoWebApi.Api/DemoWebApi.Api.csproj'
   projectPath: './src/DemoWebApi.Infrastructure/DemoWebApi.Infrastructure.csproj'
   dotNetVersion: '8.x'
 
@@ -14,7 +15,7 @@ stages:
     displayName: 'Build Stage'
     jobs:
       - job: Build
-        displayName: 'Build EF Project'
+        displayName: 'Build Migration Project'
         steps:
           - task: UseDotNet@2
             displayName: 'Install .NET SDK'
@@ -23,11 +24,13 @@ stages:
 
           - script: |
               dotnet restore $(projectPath)
+              dotnet restore $(startupProjectPath)
               dotnet build $(projectPath) --configuration Release
+              dotnet build $(startupProjectPath) --configuration Release
             displayName: 'Restore and Build'
 
   - stage: ApplyMigration
-    displayName: 'Apply Migration'
+    displayName: 'Apply Migrations'
     dependsOn: Build
     jobs:
       - job: ApplyMigrations
@@ -35,5 +38,5 @@ stages:
         steps:
           - script: |
               dotnet tool install --global dotnet-ef
-              dotnet ef database update --project $(projectPath) --connection "$(connectionString)"
+              dotnet ef database update --project $(projectPath) --startup-project $(startupProjectPath) --connection "$(connectionString)"
             displayName: 'Apply Migrations'
