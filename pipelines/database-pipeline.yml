@@ -22,9 +22,12 @@ stages:
             displayName: 'Install .NET SDK'
             inputs:
               version: $(dotNetVersion)
-
+              
           - script: |
               dotnet tool install --global dotnet-ef
+            displayName: 'Restore and Build'
+
+          - script: |
               dotnet restore $(projectPath)
               dotnet restore $(startupProjectPath)
               dotnet build $(projectPath) --configuration Release
