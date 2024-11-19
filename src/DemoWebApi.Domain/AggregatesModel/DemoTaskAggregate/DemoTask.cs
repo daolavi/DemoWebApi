@@ -22,22 +22,28 @@ public class DemoTask : Entity
 
     public static Result<DemoTask> CreateTask(string? name, bool isDone, DateTime? dueDate, DateTime? completionDate)
     {
+        var errorMessages = new List<string>();
         if (string.IsNullOrEmpty(name))
         {
-            return Result.Fail<DemoTask>($"Name is required.");
+            errorMessages.Add("Name is required.");
         }
         
         if (isDone && !completionDate.HasValue)
         {
-            return Result.Fail<DemoTask>($"CompletionDate is required for a completed task.");
+            errorMessages.Add("CompletionDate is required for a completed task.");
         }
 
         if (!dueDate.HasValue)
         {
-            return Result.Fail<DemoTask>($"DueDate is required.");
+            errorMessages.Add("DueDate is required.");
         }
 
-        var task = new DemoTask(name, isDone, dueDate.Value, completionDate);
+        if (errorMessages.Count > 0)
+        {
+            return Result.Fail<DemoTask>(errorMessages);
+        }
+
+        var task = new DemoTask(name!, isDone, dueDate!.Value, completionDate);
         return Result.Ok(task);
     }
     

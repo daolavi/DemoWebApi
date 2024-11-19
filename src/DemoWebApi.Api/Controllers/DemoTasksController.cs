@@ -1,3 +1,4 @@
+using DemoWebApi.Api.Extensions;
 using DemoWebApi.Application.Commands;
 using DemoWebApi.Application.Queries;
 using DemoWebApi.Contracts.Requests;
@@ -39,7 +40,7 @@ public class DemoTasksController(IMediator mediator) : ControllerBase
 
         if (result.IsFailed)
         {
-            return BadRequest(result.Errors);
+            return BadRequest(result.ToProblemDetails(Request.Path));
         }
         
         return Ok(result.Value);

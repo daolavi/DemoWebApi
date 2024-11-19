@@ -38,6 +38,21 @@ public class DemoTaskTests
     }
     
     [Test]
+    public void Create_WhenDueDateAndNameAreNull_ReturnsError()
+    {
+        var builder = new DemoTaskBuilder()
+            .WithName(null)
+            .WithIsDone(_fixture.Create<bool>())
+            .WithDueDate(null)
+            .WithCompletedDate(_fixture.Create<DateTime>())
+            .Build();
+
+        builder.IsFailed.Should().BeTrue();
+        builder.Errors.Should().Contain(e => e.Message.Contains("Name is required."));
+        builder.Errors.Should().Contain(e => e.Message.Contains("DueDate is required."));
+    }
+    
+    [Test]
     public void Create_WhenTaskIsDoneAndCompletionDateIsNull_ReturnsError()
     {
         var builder = new DemoTaskBuilder()
