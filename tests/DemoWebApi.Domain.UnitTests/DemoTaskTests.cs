@@ -14,7 +14,6 @@ public class DemoTaskTests
     {
         var builder = new DemoTaskBuilder()
             .WithName(null!)
-            .WithIsDone(_fixture.Create<bool>())
             .WithDueDate(_fixture.Create<DateTime>())
             .WithCompletedDate(_fixture.Create<DateTime>())
             .Build();
@@ -28,7 +27,6 @@ public class DemoTaskTests
     {
         var builder = new DemoTaskBuilder()
             .WithName("demo")
-            .WithIsDone(_fixture.Create<bool>())
             .WithDueDate(null)
             .WithCompletedDate(_fixture.Create<DateTime>())
             .Build();
@@ -42,7 +40,6 @@ public class DemoTaskTests
     {
         var builder = new DemoTaskBuilder()
             .WithName(null)
-            .WithIsDone(_fixture.Create<bool>())
             .WithDueDate(null)
             .WithCompletedDate(_fixture.Create<DateTime>())
             .Build();
@@ -53,20 +50,6 @@ public class DemoTaskTests
     }
     
     [Test]
-    public void Create_WhenTaskIsDoneAndCompletionDateIsNull_ReturnsError()
-    {
-        var builder = new DemoTaskBuilder()
-            .WithName("demo")
-            .WithIsDone(true)
-            .WithDueDate(_fixture.Create<DateTime>())
-            .WithCompletedDate(null)
-            .Build();
-
-        builder.IsFailed.Should().BeTrue();
-        builder.Errors.Should().Contain(e => e.Message.Contains("CompletionDate is required for a completed task."));
-    }
-
-    [Test]
     public void Create_WhenValid_ReturnsDemoTask()
     {
         var name = "demo";
@@ -76,7 +59,6 @@ public class DemoTaskTests
         
         var builder = new DemoTaskBuilder()
             .WithName(name)
-            .WithIsDone(isDone)
             .WithDueDate(dueDate)
             .WithCompletedDate(completedDate)
             .Build();

@@ -18,7 +18,7 @@ public class CreateDemoTaskTests : IntegrationTestBase
     [Test]
     public async Task Create_WhenNameIsNull_ReturnsBadRequest()
     {
-        var request = GivenARequest(null!, Fixture.Create<bool>(), Fixture.Create<DateTime>(),
+        var request = GivenARequest(null!, Fixture.Create<DateTime>(),
             Fixture.Create<DateTime>());
         await WhenCallingEndpoint(request);
         ThenReturnsBadRequest();
@@ -26,19 +26,9 @@ public class CreateDemoTaskTests : IntegrationTestBase
     }
     
     [Test]
-    public async Task Create_WhenTaskCompletedAndCompletionDateIsNull_ReturnsBadRequest()
-    {
-        var request = GivenARequest(Fixture.Create<string>(), true, Fixture.Create<DateTime>(),
-            null);
-        await WhenCallingEndpoint(request);
-        ThenReturnsBadRequest();
-        await ThenReturnsErrorMessage($"CompletionDate and IsDone set to true are required for a completed task");
-    }
-    
-    [Test]
     public async Task Create_WhenDueDateIsNull_ReturnsBadRequest()
     {
-        var request = GivenARequest(Fixture.Create<string>(), true, null,Fixture.Create<DateTime>());
+        var request = GivenARequest(Fixture.Create<string>(), null,Fixture.Create<DateTime>());
         await WhenCallingEndpoint(request);
         ThenReturnsBadRequest();
         await ThenReturnsErrorMessage($"DueDate is required");
@@ -47,16 +37,16 @@ public class CreateDemoTaskTests : IntegrationTestBase
     [Test]
     public async Task Create_WhenValid_ReturnsOk()
     {
-        var request = GivenARequest(Fixture.Create<string>(), true, Fixture.Create<DateTime>(),
+        var request = GivenARequest(Fixture.Create<string>(), Fixture.Create<DateTime>(),
             Fixture.Create<DateTime>());
         await WhenCallingEndpoint(request);
         ThenReturnsOk();
         await ThenReturnsDemoTaskId();
     }
 
-    private static CreateDemoTaskRequest GivenARequest(string name, bool isDone, DateTime? dueDate, DateTime? completionDate)
+    private static CreateDemoTaskRequest GivenARequest(string name, DateTime? dueDate, DateTime? completionDate)
     {
-        var request = new CreateDemoTaskRequest(name, isDone, dueDate, completionDate);
+        var request = new CreateDemoTaskRequest(name, dueDate, completionDate);
         return request;
     }
 

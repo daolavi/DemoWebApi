@@ -10,7 +10,7 @@ public class CreateDemoTaskCommandHandler(DemoWebApiContext context) : IRequestH
 {
     public async Task<Result<CreateDemoTaskResponse>> Handle(CreateDemoTaskCommand request, CancellationToken cancellationToken)
     {
-        var createDemoTask = DemoTask.CreateTask(request.Name, request.IsDone, request.DueDate, request.CompletionDate);
+        var createDemoTask = DemoTask.CreateTask(request.Name, request.DueDate, request.CompletionDate);
 
         if (!createDemoTask.IsSuccess)
         {

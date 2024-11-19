@@ -6,19 +6,12 @@ namespace DemoWebApi.Tests.Common;
 public class DemoTaskBuilder
 {
     private string? _name;
-    private bool _isDone;
     private DateTime? _dueDate;
     private DateTime? _completedDate;
 
     public DemoTaskBuilder WithName(string? name)
     {
         _name = name;
-        return this;
-    }
-
-    public DemoTaskBuilder WithIsDone(bool isDone)
-    {
-        _isDone = isDone;
         return this;
     }
 
@@ -36,7 +29,7 @@ public class DemoTaskBuilder
 
     public Result<DemoTask> Build()
     {
-        var demoTask = DemoTask.CreateTask(_name, _isDone, _dueDate, _completedDate);
+        var demoTask = DemoTask.CreateTask(_name, _dueDate, _completedDate);
         return demoTask;
     }
 }

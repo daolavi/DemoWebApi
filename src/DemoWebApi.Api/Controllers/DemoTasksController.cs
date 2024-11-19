@@ -33,7 +33,6 @@ public class DemoTasksController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new CreateDemoTaskCommand(
             request.Name,
-            request.IsDone,
             request.DueDate,
             request.CompletionDate
             ), cancellationToken);

@@ -44,7 +44,6 @@ public class GetDemoTaskByIdTests : IntegrationTestBase
     {
         var builder = new DemoTaskBuilder()
             .WithName(Fixture.Create<string>())
-            .WithIsDone(Fixture.Create<bool>())
             .WithDueDate(Fixture.Create<DateTime>())
             .WithCompletedDate(Fixture.Create<DateTime>())
             .Build();
