@@ -1,4 +1,5 @@
-﻿using DemoWebApi.Domain.AggregatesModel.DemoTaskAggregate;
+﻿using DemoWebApi.Domain.AggregatesModel.AuditLogAggregate;
+using DemoWebApi.Domain.AggregatesModel.DemoTaskAggregate;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace DemoWebApi.Infrastructure;
 public class DemoWebApiContext : DbContext
 {
     public DbSet<DemoTask> DemoTasks { get; init; }
+    public DbSet<AuditLog> AuditLogs { get; init; }
 
     private readonly IMediator _mediator;
     public DemoWebApiContext(DbContextOptions<DemoWebApiContext> options) : base(options) { }
