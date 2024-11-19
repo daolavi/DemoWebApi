@@ -1,5 +1,4 @@
 using DemoWebApi.Application.Extensions;
-using DemoWebApi.Domain.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -14,24 +13,34 @@ public class ValidatorBehavior<TRequest, TResponse>(
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
+        if (!validators.Any())
+        {
+            return await next();
+        }
+        
         var typeName = request.GetGenericTypeName();
+        logger.LogInformation("Validating request {RequestType}", typeName);
 
-        logger.LogInformation("Validating command {CommandType}", typeName);
+        var context = new ValidationContext<TRequest>(request);
 
-        var failures = validators
-            .Select(v => v.Validate(request))
-            .SelectMany(result => result.Errors)
-            .Where(error => error != null)
+        var validationResults = await Task.WhenAll(
+            validators.Select(v =>
+                v.ValidateAsync(context, cancellationToken)));
+
+        var failures = validationResults
+            .Where(r => r.Errors.Count > 0)
+            .SelectMany(r => r.Errors)
             .ToList();
 
-        if (failures.Any())
+        if (failures.Count <= 0)
         {
-            logger.LogWarning("Validation errors - {CommandType} - Command: {@Command} - Errors: {@ValidationErrors}", typeName, request, failures);
-
-            throw new DemoTaskDomainException(
-                $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+            return await next();
         }
-
-        return await next();
+        
+        logger.LogWarning(
+            "Validation errors - {RequestType} - Request: {@Request} - Errors: {@ValidationErrors}", typeName,
+            request, failures);
+                
+        throw new ValidationException(failures);
     }
 }

@@ -1,3 +1,4 @@
+using DemoWebApi.Api.Middlewares;
 using DemoWebApi.Application.IoC;
 using Microsoft.EntityFrameworkCore;
 using DemoWebApi.Infrastructure;
@@ -39,6 +40,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapHealthChecks("/api/status").AllowAnonymous();
 app.MapControllers();
 

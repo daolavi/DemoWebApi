@@ -32,7 +32,7 @@ public class CreateDemoTaskTests : IntegrationTestBase
             null);
         await WhenCallingEndpoint(request);
         ThenReturnsBadRequest();
-        await ThenReturnsErrorMessage($"CompletionDate is required for a completed task.");
+        await ThenReturnsErrorMessage($"CompletionDate and IsDone set to true are required for a completed task");
     }
     
     [Test]
@@ -47,7 +47,7 @@ public class CreateDemoTaskTests : IntegrationTestBase
     [Test]
     public async Task Create_WhenValid_ReturnsOk()
     {
-        var request = GivenARequest(Fixture.Create<string>(), Fixture.Create<bool>(), Fixture.Create<DateTime>(),
+        var request = GivenARequest(Fixture.Create<string>(), true, Fixture.Create<DateTime>(),
             Fixture.Create<DateTime>());
         await WhenCallingEndpoint(request);
         ThenReturnsOk();

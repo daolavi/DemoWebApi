@@ -1,5 +1,6 @@
 using DemoWebApi.Application.Behaviors;
-using DemoWebApi.Application.Queries;
+using DemoWebApi.Application.Commands;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DemoWebApi.Application.IoC;
@@ -11,10 +12,11 @@ public static class DependenciesContainer
         services.AddMediatR(cfg =>
         {
             cfg.Lifetime = ServiceLifetime.Scoped;
-            cfg.RegisterServicesFromAssemblyContaining<GetDemoTaskByIdQuery>();
+            cfg.RegisterServicesFromAssemblyContaining<CreateDemoTaskCommand>();
             cfg.AddOpenBehavior(typeof(ValidatorBehavior<,>));
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+        services.AddValidatorsFromAssemblyContaining<CreateDemoTaskCommand>();
         
         return services;
     }
