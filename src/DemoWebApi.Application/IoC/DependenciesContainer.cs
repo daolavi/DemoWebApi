@@ -1,3 +1,4 @@
+using System.Reflection;
 using DemoWebApi.Application.Behaviors;
 using DemoWebApi.Application.Commands;
 using DemoWebApi.Application.Validations;
@@ -12,11 +13,11 @@ public static class DependenciesContainer
     {
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<CreateDemoTaskCommand>();
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddOpenBehavior(typeof(ValidatorBehavior<,>));
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
-        services.AddValidatorsFromAssemblyContaining<CreateDemoTaskCommandValidator>();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         
         return services;
     }

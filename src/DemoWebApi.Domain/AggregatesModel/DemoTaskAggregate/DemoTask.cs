@@ -42,10 +42,14 @@ public class DemoTask : Entity
         return Result.Ok(task);
     }
     
-    public void Complete(DateTime completionDate)
+    public Result<bool> Complete(DateTime completionDate)
     {
+        if (IsDone)
+        {
+            return Result.Fail<bool>("Task is already completed.");
+        }
         CompletionDate = completionDate;
-        
         AddDomainEvent(new DemoTaskCompletedDomainEvent(this));
+        return Result.Ok(true);
     }
 }

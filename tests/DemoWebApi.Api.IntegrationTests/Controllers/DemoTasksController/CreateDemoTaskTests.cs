@@ -1,11 +1,8 @@
 using System.Net.Http.Json;
 using AutoFixture;
-using DemoWebApi.Application.Converters;
 using DemoWebApi.Contracts.Requests;
 using DemoWebApi.Contracts.Responses;
-using DemoWebApi.Domain.AggregatesModel.DemoTaskAggregate;
 using DemoWebApi.Infrastructure;
-using DemoWebApi.Tests.Common;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

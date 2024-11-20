@@ -39,7 +39,25 @@ public class DemoTasksController(IMediator mediator) : ControllerBase
 
         if (result.IsFailed)
         {
-            return BadRequest(result.ToProblemDetails(Request.Path));
+            return BadRequest(result.ToProblemDetails(Request));
+        }
+        
+        return Ok(result.Value);
+    }
+    
+    [HttpPatch("{demoTaskId}")]
+    public async Task<IActionResult> CompleteDemoTask(string demoTaskId, CompleteDemoTaskRequest request, 
+        CancellationToken cancellationToken)
+    {
+        if (!Guid.TryParse(demoTaskId, out Guid guid))
+        {
+            return BadRequest($"TaskId {demoTaskId} not a Guid");
+        }
+        var result = await mediator.Send(new CompleteDemoTaskCommand(guid, request.CompletionDate), cancellationToken);
+
+        if (result.IsFailed)
+        {
+            return BadRequest(result.ToProblemDetails(Request));
         }
         
         return Ok(result.Value);

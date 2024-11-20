@@ -15,7 +15,7 @@ public sealed class ExceptionHandlingMiddleware(RequestDelegate next)
         {
             var problemDetails = new ProblemDetails
             {
-                Instance = context.Request.Path,
+                Instance = $"{context.Request.Method} {context.Request.Path}",
                 Title = "One or more validation errors occurred.",
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
             };

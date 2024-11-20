@@ -5,11 +5,11 @@ namespace DemoWebApi.Api.Extensions;
 
 public static class ResultExtension
 {
-    public static ProblemDetails ToProblemDetails<T>(this Result<T> result, string? instance = null)
+    public static ProblemDetails ToProblemDetails<T>(this Result<T> result, HttpRequest httpRequest)
     {
         var problemDetails = new ProblemDetails
         {
-            Instance = instance,
+            Instance = $"{httpRequest.Method} {httpRequest.Path}",
             Title = "One or more validation errors occurred.",
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
         };
