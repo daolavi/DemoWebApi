@@ -33,6 +33,7 @@ stages:
   - stage: ApplyMigrationsToStaging
     displayName: 'Apply migrations to Staging'
     dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: template-migration.yml
         parameters:
@@ -45,6 +46,7 @@ stages:
     displayName: 'Apply migrations to Production'
     dependsOn: ApplyMigrationsToStaging
     condition: false
+    #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: template-migration.yml
         parameters:
