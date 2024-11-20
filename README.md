@@ -1,31 +1,33 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# DemoWebApi
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Introduction
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-1. docker build -t demowebapi -f pipelines/Dockerfile .
-2. docker run -d -p 8080:8080 --name demowebapicontainer demowebapi
-3. docker kill demowebapicontainer
+A small project leveraging C#, .Net 8.0 to build a web api that follows DDD best practices.
 
+## Features
 
-1. docker compose build
-2. docker compose run
+- **Get Demo Task**: Get a demo task by id.
+- **Create Demo Task**: Create a demo task.
+- **Complete Demo Task**: Complete an existing task.
 
+## Prerequisite
 
-1. docker compose up -d
-2. docker compose down
+- Docker & Docker Compose for containerisation.
+- .NET 8 SDK & runtime.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Quick Start
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+1. **Build and deploy with Docker Compose**:
+   Navigate to the project root directory and run:
+    ```bash
+    docker compose up --build
+    ```
+
+2. **Release resources**:
+	```bash
+    docker compose down
+    ```
+
+## Author
+
+- Dao Lam
