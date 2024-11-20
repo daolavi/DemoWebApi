@@ -18,13 +18,12 @@ A small project leveraging C#, .Net 8.0 to build a web api that follows DDD best
 ## Quick Start
 
 1. **Build and deploy with Docker Compose**:
-   Navigate to the project root directory and run:
     ```bash
     docker compose up --build
     ```
 
 2. **Release resources**:
-	```bash
+    ```bash
     docker compose down
     ```
 
