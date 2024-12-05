@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A small project leveraging C#, .Net 8.0 to build a web api that follows DDD best practices.
+A small project utilizing C# and .NET 8.0 to develop a web API adhering to Domain-Driven Design (DDD) best practices.
 
 ## Features
 
